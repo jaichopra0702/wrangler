@@ -18,7 +18,6 @@ package io.cdap.wrangler.api.lineage;
 
 import io.cdap.cdap.api.annotation.Beta;
 import io.cdap.wrangler.api.parser.ColumnName;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -119,6 +118,7 @@ public final class Mutation implements Serializable {
      * @param sources a list of sources to be dropped from lineage.
      * @return a instance of {@link Mutation.Builder}.
      */
+    @SuppressWarnings("deprecation")
     public Mutation.Builder drop(Many sources) {
       relations.add(new Relation(uuid(), sources.columns(),
                                  Collections.emptyList(), Relation.Type.DROP));
@@ -131,6 +131,7 @@ public final class Mutation implements Serializable {
      * @param targets a list of targets.
      * @return a instance of {@link Mutation.Builder}.
      */
+    @SuppressWarnings("deprecation")
     public Mutation.Builder create(Many targets) {
       relations.add(new Relation(uuid(), Collections.emptyList(),
                                  targets.columns(), Relation.Type.CREATE));
@@ -144,6 +145,7 @@ public final class Mutation implements Serializable {
      * @param targets a list of targets.
      * @return a instance of {@link Mutation.Builder}.
      */
+    @SuppressWarnings("deprecation")
     public Mutation.Builder generate(Many targets) {
       relations.add(new Relation(uuid(), Collections.emptyList(),
                                  targets.columns(), Relation.Type.GENERATE));
@@ -157,6 +159,7 @@ public final class Mutation implements Serializable {
      * @param sources list of sources to be associated with all output.
      * @return a instance of {@link Mutation.Builder}.
      */
+    @SuppressWarnings("deprecation")
     public Mutation.Builder all(Many sources) {
       relations.add(new Relation(uuid(), sources.columns(),
                                  Collections.emptyList(), Relation.Type.ALL));
@@ -257,6 +260,7 @@ public final class Mutation implements Serializable {
      * @param targets {@link Many} target columns to be associated with {@link Many} sources.
      * @return a instance of {@link Mutation.Builder}
      */
+    @SuppressWarnings("deprecation")
     public Mutation.Builder relation(Many sources, Many targets) {
       relations.add(new Relation(uuid(), sources.columns(), targets.columns()));
       return this;

@@ -14,12 +14,15 @@
  * the License.
  */
 
-package io.cdap.wrangler.parser;
+package io.cdap.wrangler.api.parser;
 
 import io.cdap.wrangler.api.CompileException;
 import io.cdap.wrangler.api.CompileStatus;
 import io.cdap.wrangler.api.Compiler;
 import io.cdap.wrangler.api.RecipeSymbol;
+import io.cdap.wrangler.parser.DirectivesLexer;
+import io.cdap.wrangler.parser.DirectivesParser;
+
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;

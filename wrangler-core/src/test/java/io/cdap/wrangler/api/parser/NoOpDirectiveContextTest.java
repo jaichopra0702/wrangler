@@ -14,11 +14,12 @@
  * the License.
  */
 
-package io.cdap.wrangler.parser;
+package io.cdap.wrangler.api.parser;
 
 import io.cdap.wrangler.TestingRig;
 import io.cdap.wrangler.api.Directive;
 import io.cdap.wrangler.api.RecipeParser;
+
 import org.junit.Assert;
 import org.junit.Test;
 

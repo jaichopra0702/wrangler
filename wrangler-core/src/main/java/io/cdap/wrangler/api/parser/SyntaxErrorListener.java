@@ -14,9 +14,9 @@
  *  the License.
  */
 
-package io.cdap.wrangler.parser;
+package io.cdap.wrangler.api.parser;
+import io.cdap.wrangler.parser.DirectivesLexer;
 
-import io.cdap.wrangler.api.parser.SyntaxError;
 import org.antlr.v4.runtime.BaseErrorListener;
 import org.antlr.v4.runtime.NoViableAltException;
 import org.antlr.v4.runtime.Parser;

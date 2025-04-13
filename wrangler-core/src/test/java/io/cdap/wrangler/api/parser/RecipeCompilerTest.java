@@ -14,15 +14,17 @@
  *  the License.
  */
 
-package io.cdap.wrangler.parser;
+package io.cdap.wrangler.api.parser;
 
 import io.cdap.wrangler.TestingRig;
 import io.cdap.wrangler.api.CompileException;
 import io.cdap.wrangler.api.CompileStatus;
 import io.cdap.wrangler.api.Compiler;
+
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -33,22 +35,22 @@ public class RecipeCompilerTest {
   private static final Compiler compiler = new RecipeCompiler();
 
   @Test
-  public void testSuccessCompilation() throws Exception {
-    try {
-      Compiler compiler = new RecipeCompiler();
-      CompileStatus status = compiler.compile(
-          "parse-as-csv :body ' ' true;\n"
-        + "set-column :abc, :edf;\n"
-        + "send-to-error exp:{ window < 10 } ;\n"
-        + "parse-as-simple-date :col 'yyyy-mm-dd' :col 'test' :col2,:col4,:col9 10 exp:{test < 10};\n"
-      );
+public void testSuccessCompilation() throws Exception {
+  try {
+    CompileStatus status = compiler.compile(
+      "parse-as-csv :body ' ' true;\n"
+      + "set-column :abc, :edf;\n"
+      + "send-to-error exp:{ window < 10 } ;\n"
+      + "parse-as-simple-date :col 'yyyy-mm-dd' :col 'test' :col2,:col4,:col9 10 exp:{test < 10};\n"
+    );
 
-      Assert.assertNotNull(status.getSymbols());
-      Assert.assertEquals(4, status.getSymbols().size());
-    } catch (CompileException e) {
-      Assert.assertTrue(false);
-    }
+    Assert.assertNotNull(status.getSymbols());
+    Assert.assertEquals(4, status.getSymbols().size());
+  } catch (CompileException e) {
+    Assert.fail("Compilation failed when it should have succeeded.");
   }
+}
+
 
   @Test
   public void testMacroSkippingDuringParsing() throws Exception {
@@ -168,9 +170,13 @@ public class RecipeCompilerTest {
       "filter-rows-on regex-match body_5 *as*"
     };
     CompileStatus compile = TestingRig.compile(recipe);
-    Assert.assertTrue(true);
+Assert.assertTrue("Should compile successfully", compile.isSuccess());
+
   }
 
+  /**
+   * @throws Exception
+   */
   @Test
   public void test() throws Exception {
     String[] recipe = new String[] {
@@ -184,7 +190,8 @@ public class RecipeCompilerTest {
       "filter-rows-on regex-match body_5 *as*"
     };
     CompileStatus compile = TestingRig.compile(recipe);
-    Assert.assertTrue(true);
+    Assert.assertTrue("Compilation should succeed", compile.isSuccess());
+
   }
 
   @Test
@@ -193,8 +200,57 @@ public class RecipeCompilerTest {
       "parse-as-csv :body '\t' true; drop :body;"
     };
     CompileStatus compile = TestingRig.compile(recipe);
-    Assert.assertTrue(true);
+    Assert.assertTrue("Compilation should succeed", compile.isSuccess());
+
   }
+  @Test
+public void testAggregateStatsValid() throws Exception {
+  String[] recipe = new String[] {
+    "#pragma version 2.0;",
+    "aggregate-stats :col_bytes :col_time :total_bytes_mb :total_time_sec;"
+  };
+  CompileStatus compile = TestingRig.compile(recipe);
+  Assert.assertTrue("Should compile with valid aggregate-stats directive", compile.isSuccess());
+}
+
+@Test
+public void testAggregateStatsInvalidSyntax() throws Exception {
+  String[] recipe = new String[] {
+    "#pragma version 2.0;",
+    "aggregate-stats :col_bytes;"  // Invalid: Missing required columns and identifiers
+  };
+
+  // Compile the recipe
+  CompileStatus compile = TestingRig.compile(recipe);
+
+  // Log the success or failure status
+  System.out.println("Compilation success: " + compile.isSuccess());
+  
+  // Assert that the compilation fails due to invalid syntax
+  Assert.assertFalse("Should fail with invalid syntax", compile.isSuccess());
+
+  // If the compilation succeeded unexpectedly, print errors for debugging
+  if (compile.isSuccess()) {
+    Iterator<SyntaxError> errorIterator = compile.getErrors();
+    while (errorIterator.hasNext()) {
+      SyntaxError error = errorIterator.next();
+      System.out.println("Error: " + error.getMessage());
+    }
+  }
+
+  // Check if the error message contains "Invalid syntax"
+  Iterator<SyntaxError> errorIterator = compile.getErrors();
+  boolean containsError = false;
+  while (errorIterator.hasNext()) {
+    SyntaxError error = errorIterator.next();
+    if (error.getMessage().contains("Invalid syntax")) {
+      containsError = true;
+      break;
+    }
+  }
+
+  Assert.assertTrue("Error message should indicate invalid syntax", containsError);
+}
 
   @Test
   public void testError() throws Exception {
@@ -202,7 +258,8 @@ public class RecipeCompilerTest {
       "parse-as-abababa-csv :body '\t' true; drop :body;"
     };
     CompileStatus compile = TestingRig.compile(recipe);
-    Assert.assertTrue(true);
+    Assert.assertTrue("Compilation should succeed", compile.isSuccess());
+
   }
 
   @Test

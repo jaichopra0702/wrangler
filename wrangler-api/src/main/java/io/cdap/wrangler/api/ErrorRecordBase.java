@@ -16,7 +16,7 @@
 
 package io.cdap.wrangler.api;
 
-import java.util.List;
+
 
 /**
  * Base class for error record that includes the critical fields.

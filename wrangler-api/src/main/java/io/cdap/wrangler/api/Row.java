@@ -260,4 +260,14 @@ public final class Row implements Serializable {
   public int hashCode() {
     return Objects.hash(columns, values);
   }
+
+  public boolean contains(String sourceCol2) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'contains'");
+  }
+
+  public Object getField(String string) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'getField'");
+  }
 }

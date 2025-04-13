@@ -17,6 +17,8 @@
 package io.cdap.wrangler.api;
 
 import com.google.gson.JsonElement;
+
+import io.cdap.wrangler.api.parser.ColumnName;
 import io.cdap.wrangler.api.parser.Token;
 import io.cdap.wrangler.api.parser.TokenType;
 
@@ -116,4 +118,9 @@ public interface Arguments {
    * named tokens held within this object.
    */
   JsonElement toJson();
+
+  ColumnName get(String i);
+
+  void add(String string, ColumnName columnName);
+  Token get(int index); 
 }

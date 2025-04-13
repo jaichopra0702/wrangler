@@ -13,34 +13,20 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
+package io.cdap.wrangler.api.annotations;
 
-package io.cdap.wrangler.api;
-
-import io.cdap.wrangler.api.annotations.Public;
-
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
- * Specifies the structure for Error records.
+ * Annotation for defining a directive's name, usage, and description.
  */
-@Public
-public final class ErrorRecord extends ErrorRecordBase {
-  // Actual row that is errored.
-  private final Row row;
-
-  public ErrorRecord(Row row, String message, int code, boolean showInWrangler) {
-    super(message, code, showInWrangler);
-    this.row = row;
-  }
-
-  public ErrorRecord(Row row, String message, int code) {
-    this(row, message, code, false);
-  }
-
-  /**
-   * @return original {@link Row} that errored.
-   */
-  public Row getRow() {
-    return row;
-  }
-
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+public @interface DirectiveName {
+  String name();
+  String usage();
+  String description();
 }

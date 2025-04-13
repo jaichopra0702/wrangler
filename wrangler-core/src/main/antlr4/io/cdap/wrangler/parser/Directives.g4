@@ -50,7 +50,8 @@ statements
  ;
 
 directive
- : command
+ : 'aggregate-stats' column column IDENTIFIER IDENTIFIER (STRING_LITERAL STRING_LITERAL STRING_LITERAL)?
+ | command
   (   codeblock
     | identifier
     | macro
@@ -66,6 +67,22 @@ directive
     | properties
   )*?
   ;
+
+aggregateStatsDirective
+  : 'aggregate-stats' colList outputCols ';'
+  ;
+
+
+
+outputCols
+  : identifier+  // Output columns like total_size_mb, total_time_sec
+  ;
+
+
+
+
+
+
 
 ifStatement
   : ifStat elseIfStat* elseStat? '}'
@@ -110,6 +127,8 @@ pragmaVersion
 codeblock
  : 'exp' Space* ':' condition
  ;
+
+
 
 identifier
  : Identifier
@@ -167,6 +186,15 @@ bool
  : Bool
  ;
 
+ byteSizeArg
+  : BYTE_SIZE
+  ;
+
+timeDurationArg
+  : TIME_DURATION
+  ;
+
+
 condition
  : OBrace (~CBrace | condition)* CBrace
  ;
@@ -196,9 +224,16 @@ identifierList
  ;
 
 
+
 /*
  * Following are the Lexer Rules used for tokenizing the recipe.
  */
+ BYTE_SIZE: [0-9]+([.][0-9]+)? BYTE_UNIT;
+TIME_DURATION: [0-9]+([.][0-9]+)? TIME_UNIT;
+
+fragment BYTE_UNIT: ('B' | 'KB' | 'MB' | 'GB' | 'TB');
+fragment TIME_UNIT: ('ms' | 's' | 'm' | 'h');
+
 OBrace   : '{';
 CBrace   : '}';
 SColon   : ';';
@@ -257,6 +292,8 @@ Number
  : Int ('.' Digit*)?
  ;
 
+ AGGREGATE_STATS: 'aggregate-stats';
+
 Identifier
  : [a-zA-Z_\-] [a-zA-Z_0-9\-]*
  ;
@@ -265,9 +302,8 @@ Macro
  : [a-zA-Z_] [a-zA-Z_0-9]*
  ;
 
-Column
- : ':' [a-zA-Z_\-] [:a-zA-Z_0-9\-]*
- ;
+Column : ':' [a-zA-Z_\-] [a-zA-Z_0-9\-]*;
+
 
 String
  : '\'' ( EscapeSequence | ~('\'') )* '\''

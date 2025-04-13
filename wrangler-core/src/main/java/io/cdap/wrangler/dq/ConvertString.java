@@ -141,6 +141,7 @@ public class ConvertString {
     return result;
   }
 
+
   /**
    *
    * Remove consecutive repeated characters by a specified char.
@@ -157,25 +158,28 @@ public class ConvertString {
   }
 
   /**
-   *
-   * Remove all repeated white spaces which include all strings in {@link #WHITESPACE_CHARS}
-   * like as " ","\n","\r","\t".
-   *
-   * <pre>
-   * removeRepeatedWhitespaces(null) = null
-   * removeRepeatedWhitespaces("")   = ""
-   * removeRepeatedWhitespaces("a  back\t\t\td") = "a back\td"
-   * </pre>
-   *
-   * @param input input the source String
-   * @return the string removed all whiteSpaces
-   */
-  public String removeRepeatedWhitespaces(String input) {
-    if (StringUtils.isEmpty(input) || removeWhiteSpacesPattern == null) {
+ * Removes all repeated white spaces which include all strings in {@link #WHITESPACE_CHARS}
+ * like as " ","\n","\r","\t".
+ *
+ * @param input the source String
+ * @return the string removed all whiteSpaces
+ */
+public String removeRepeatedWhitespaces(String input) {
+  if (StringUtils.isEmpty(input)) {
+      return input;
+  }
+
+  // Replace any sequence of whitespace characters with a single whitespace
+  return input.replaceAll("[\\s\\u0085\\p{Z}]+", " ");
+}
+
+
+  public String removeAllWhitespaces(String input) {
+    if (StringUtils.isEmpty(input)) {
       return input;
     }
-    Matcher matcher = removeWhiteSpacesPattern.matcher(input);
-    return matcher.replaceAll("$1");
+    return input.replaceAll("\\s+", "");
   }
+  
 
 }

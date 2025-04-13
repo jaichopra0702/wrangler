@@ -121,9 +121,16 @@ public interface Directive extends Executor<List<Row>, List<Row>>, EntityMetrics
    * returned and used in the metrics emission logic elsewhere.
    * @return List of metrics ({@link EntityCountMetric}s) emitted by this directive
    */
+  /**
+ * Returns the name of the directive (e.g., "aggregate-stats", "text-reverse", etc.)
+ */
+default String getName() {
+  return this.getClass().getSimpleName().toLowerCase();
+}
   @Override
   default List<EntityCountMetric> getCountMetrics() {
     // no op
     return null;
   }
+
 }

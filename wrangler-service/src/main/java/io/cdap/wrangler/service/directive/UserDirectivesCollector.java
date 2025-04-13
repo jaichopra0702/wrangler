@@ -18,7 +18,7 @@
 package io.cdap.wrangler.service.directive;
 
 import io.cdap.wrangler.api.TokenGroup;
-import io.cdap.wrangler.parser.GrammarWalker;
+import io.cdap.wrangler.api.parser.GrammarWalker;
 import io.cdap.wrangler.registry.DirectiveInfo;
 import io.cdap.wrangler.registry.SystemDirectiveRegistry;
 import java.util.LinkedHashSet;

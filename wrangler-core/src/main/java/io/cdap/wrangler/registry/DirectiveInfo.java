@@ -21,8 +21,8 @@ import io.cdap.cdap.api.annotation.Name;
 import io.cdap.cdap.api.artifact.ArtifactId;
 import io.cdap.wrangler.api.Directive;
 import io.cdap.wrangler.api.annotations.Categories;
+import io.cdap.wrangler.api.parser.DirectiveClass;
 import io.cdap.wrangler.api.parser.UsageDefinition;
-import io.cdap.wrangler.parser.DirectiveClass;
 
 import javax.annotation.Nullable;
 

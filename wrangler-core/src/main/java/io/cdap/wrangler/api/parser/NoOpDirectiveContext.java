@@ -14,22 +14,15 @@
  * the License.
  */
 
-package io.cdap.wrangler.parser;
+package io.cdap.wrangler.api.parser;
 
-import io.cdap.wrangler.api.DirectiveConfig;
 import io.cdap.wrangler.api.DirectiveContext;
 
 /**
- * This class {@link ConfigDirectiveContext} manages the context for directive
- * by either retrieving the configuration from a service or from a provided
- * instance of {@link DirectiveConfig}.
+ * This class {@link NoOpDirectiveContext} is a pass through implementation of
+ * {@link DirectiveContext}.
  */
-public class ConfigDirectiveContext implements DirectiveContext {
-  private final DirectiveConfig config;
-
-  public ConfigDirectiveContext(DirectiveConfig config) {
-    this.config = config;
-  }
+public class NoOpDirectiveContext implements DirectiveContext {
 
   /**
    * Checks if the directive is aliased.
@@ -39,7 +32,7 @@ public class ConfigDirectiveContext implements DirectiveContext {
    */
   @Override
   public boolean hasAlias(String directive) {
-    return config.hasAlias(directive);
+    return false;
   }
 
   /**
@@ -49,7 +42,7 @@ public class ConfigDirectiveContext implements DirectiveContext {
    */
   @Override
   public String getAlias(String directive) {
-    return config.getAliasName(directive);
+    return directive;
   }
 
   /**
@@ -60,6 +53,6 @@ public class ConfigDirectiveContext implements DirectiveContext {
    */
   @Override
   public boolean isExcluded(String directive) {
-    return config.isExcluded(directive);
+    return false;
   }
 }

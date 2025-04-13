@@ -51,12 +51,14 @@ public class ChangeColCaseNames implements Directive, Lineage {
   public static final String NAME = "change-column-case";
   private boolean toLower;
 
+
   @Override
   public UsageDefinition define() {
-    UsageDefinition.Builder builder = UsageDefinition.builder(NAME);
-    builder.define("case", TokenType.IDENTIFIER, Optional.TRUE);
-    return builder.build();
+      UsageDefinition.Builder builder = UsageDefinition.builder(NAME); // No arguments here
+      builder.define("case", TokenType.IDENTIFIER, Optional.TRUE); // Define the "case" argument
+      return builder.build(); // Build the UsageDefinition object
   }
+  
 
   @Override
   public void initialize(Arguments args) throws DirectiveParseException {

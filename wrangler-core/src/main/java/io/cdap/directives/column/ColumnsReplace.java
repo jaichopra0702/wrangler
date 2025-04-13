@@ -51,7 +51,7 @@ import java.util.stream.Collectors;
 @Description("Modifies column names in bulk using a sed-format expression.")
 public class ColumnsReplace implements Directive, Lineage {
   public static final String NAME = "columns-replace";
-  private String sed;
+  private Object sed;
 
   @Override
   public UsageDefinition define() {
@@ -62,8 +62,24 @@ public class ColumnsReplace implements Directive, Lineage {
 
   @Override
   public void initialize(Arguments args) throws DirectiveParseException {
-    sed = ((Text) args.value("sed-expression")).value();
+      // Ensure the argument is provided and it is of the correct type
+      if (!args.contains("sed-expression")) {
+          throw new DirectiveParseException("The argument 'sed-expression' is missing.");
+      }
+  
+      Object sedArg = args.value("sed-expression");
+  
+      // Check if the object is a String (or String-like)
+      if (sedArg instanceof String) {
+          sed = sedArg;  // Assign directly if it's already a String
+      } else if (sedArg instanceof Text) {
+          sed = ((Text) sedArg).value();  // Extract value if it's a Text object
+      } else {
+          throw new DirectiveParseException("Expected 'sed-expression' to be a String or Text.");
+      }
   }
+  
+
 
   @Override
   public void destroy() {
@@ -107,7 +123,10 @@ public class ColumnsReplace implements Directive, Lineage {
   }
 
   private String getSedReplacedColumnName(String colName) {
-    Unix4jCommandBuilder builder = Unix4j.echo(colName).sed(sed);
+    // Ensure that 'sed' is a String before passing it to the sed() method
+    String sedExpression = (String) sed;  // Cast sed to String
+    Unix4jCommandBuilder builder = Unix4j.echo(colName).sed(sedExpression);
     return builder.toStringResult();
-  }
+}
+
 }

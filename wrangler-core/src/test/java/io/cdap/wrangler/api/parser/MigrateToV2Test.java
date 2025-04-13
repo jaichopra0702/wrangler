@@ -14,7 +14,7 @@
  *  the License.
  */
 
-package io.cdap.wrangler.parser;
+package io.cdap.wrangler.api.parser;
 
 import io.cdap.wrangler.api.GrammarMigrator;
 import org.junit.Test;

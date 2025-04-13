@@ -13,34 +13,36 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
+package io.cdap.wrangler.api.parser;
 
-package io.cdap.wrangler.api;
-
-import io.cdap.wrangler.api.annotations.Public;
-
+import com.google.gson.JsonElement;
+import com.google.gson.JsonPrimitive;
 
 /**
- * Specifies the structure for Error records.
+ * A simple implementation of the Token interface.
  */
-@Public
-public final class ErrorRecord extends ErrorRecordBase {
-  // Actual row that is errored.
-  private final Row row;
+public class SimpleToken implements Token {
+  private final Object value;
+  private final TokenType type;
 
-  public ErrorRecord(Row row, String message, int code, boolean showInWrangler) {
-    super(message, code, showInWrangler);
-    this.row = row;
+  public SimpleToken(Object value, TokenType type) {
+    this.value = value;
+    this.type = type;
   }
 
-  public ErrorRecord(Row row, String message, int code) {
-    this(row, message, code, false);
+  @Override
+  public Object value() {
+    return value;
   }
 
-  /**
-   * @return original {@link Row} that errored.
-   */
-  public Row getRow() {
-    return row;
+  @Override
+  public TokenType type() {
+    return type;
   }
 
+  @Override
+  public JsonElement toJson() {
+    return new JsonPrimitive(value.toString());
+  }
 }
+

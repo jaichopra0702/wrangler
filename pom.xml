@@ -298,10 +298,14 @@
         <version>3.13.0</version>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.14.1</version>
-      </plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-surefire-plugin</artifactId>
+  <version>3.0.0-M9</version>
+  <configuration>
+   <skipTests>false</skipTests>
+    <argLine>--add-opens java.base/java.lang=ALL-UNNAMED</argLine>
+  </configuration>
+</plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-antrun-plugin</artifactId>
@@ -314,7 +318,30 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
       </plugin>
+      <plugin>
+  <groupId>com.diffplug.spotless</groupId>
+  <artifactId>spotless-maven-plugin</artifactId>
+  <version>2.17.5</version>
+  <executions>
+    <execution>
+      <goals>
+        <goal>apply</goal>
+      </goals>
+    </execution>
+  </executions>
+  <configuration>
+  <java>
+    <googleJavaFormat>
+      <version>1.15.0</version> <!-- or higher -->
+    </googleJavaFormat>
+  </java>
+</configuration>
+
+</plugin>
+
     </plugins>
+
+
   </build>
 
    <!-- Profile for release. Includes signing of jars. -->
@@ -420,13 +447,24 @@
       <build>
         <plugins>
           <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <configuration>
-              <useFile>false</useFile>
-              <redirectTestOutputToFile>false</redirectTestOutputToFile>
-            </configuration>
-          </plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-surefire-plugin</artifactId>
+  <version>2.22.2</version>
+  <configuration>
+    <argLine>
+      --add-opens java.base/java.lang=ALL-UNNAMED
+      --add-opens java.base/java.util=ALL-UNNAMED
+      --add-opens java.base/java.io=ALL-UNNAMED
+      --add-opens java.base/java.math=ALL-UNNAMED
+      --add-opens java.base/sun.nio.ch=ALL-UNNAMED
+      --add-opens java.base/java.net=ALL-UNNAMED
+      --add-opens java.base/java.util.concurrent=ALL-UNNAMED
+      --add-opens java.base/java.text=ALL-UNNAMED
+      --add-opens java.base/java.time=ALL-UNNAMED
+      --add-opens module/package=ALL-UNNAMED
+    </argLine>
+  </configuration>
+</plugin>
         </plugins>
       </build>
     </profile>

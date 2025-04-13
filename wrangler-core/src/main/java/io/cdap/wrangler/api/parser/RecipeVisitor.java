@@ -14,35 +14,25 @@
  * the License.
  */
 
-package io.cdap.wrangler.parser;
+ package io.cdap.wrangler.api.parser;
 
-import io.cdap.wrangler.api.LazyNumber;
-import io.cdap.wrangler.api.RecipeSymbol;
-import io.cdap.wrangler.api.SourceInfo;
-import io.cdap.wrangler.api.Triplet;
-import io.cdap.wrangler.api.parser.Bool;
-import io.cdap.wrangler.api.parser.BoolList;
-import io.cdap.wrangler.api.parser.ColumnName;
-import io.cdap.wrangler.api.parser.ColumnNameList;
-import io.cdap.wrangler.api.parser.DirectiveName;
-import io.cdap.wrangler.api.parser.Expression;
-import io.cdap.wrangler.api.parser.Identifier;
-import io.cdap.wrangler.api.parser.Numeric;
-import io.cdap.wrangler.api.parser.NumericList;
-import io.cdap.wrangler.api.parser.Properties;
-import io.cdap.wrangler.api.parser.Ranges;
-import io.cdap.wrangler.api.parser.Text;
-import io.cdap.wrangler.api.parser.TextList;
-import io.cdap.wrangler.api.parser.Token;
-import org.antlr.v4.runtime.ParserRuleContext;
-import org.antlr.v4.runtime.misc.Interval;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.TerminalNode;
+ import io.cdap.wrangler.api.LazyNumber;
+ import io.cdap.wrangler.api.RecipeSymbol;
+ import io.cdap.wrangler.api.SourceInfo;
+ import io.cdap.wrangler.api.Triplet;
+ import io.cdap.wrangler.parser.DirectivesBaseVisitor;
+ import io.cdap.wrangler.parser.DirectivesParser;
+ import org.antlr.v4.runtime.ParserRuleContext;
+ import org.antlr.v4.runtime.misc.Interval;
+ import org.antlr.v4.runtime.tree.ParseTree;
+ import org.antlr.v4.runtime.tree.TerminalNode;
+ 
+ import java.util.ArrayList;
+ import java.util.HashMap;
+ import java.util.List;
+ import java.util.Map;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+ 
 
 /**
  * This class <code>RecipeVisitor</code> implements the visitor pattern
@@ -96,6 +86,7 @@ public final class RecipeVisitor extends DirectivesBaseVisitor<RecipeSymbol.Buil
     builder.addToken(new Identifier(ctx.Identifier().getText()));
     return super.visitIdentifier(ctx);
   }
+  
 
   /**
    * A Directive can include properties (which are a collection of key and value pairs),
@@ -285,6 +276,9 @@ public final class RecipeVisitor extends DirectivesBaseVisitor<RecipeSymbol.Buil
     builder.addToken(new NumericList(numerics));
     return builder;
   }
+  
+  
+  
 
   /**
    * This visitor methods extracts the list of booleans specified. It creates a token
@@ -326,4 +320,18 @@ public final class RecipeVisitor extends DirectivesBaseVisitor<RecipeSymbol.Buil
     int column = ctx.getStart().getCharPositionInLine();
     return new SourceInfo(lineno, column, text);
   }
+
+  @Override
+public RecipeSymbol.Builder visitByteSizeArg(DirectivesParser.ByteSizeArgContext ctx) {
+  builder.addToken(new io.cdap.wrangler.api.parser.ByteSize(ctx.getText()));
+  return builder;
+}
+
+@Override
+public RecipeSymbol.Builder visitTimeDurationArg(DirectivesParser.TimeDurationArgContext ctx) {
+  builder.addToken(new io.cdap.wrangler.api.parser.TimeDuration(ctx.getText()));
+  return builder;
+}
+
+
 }

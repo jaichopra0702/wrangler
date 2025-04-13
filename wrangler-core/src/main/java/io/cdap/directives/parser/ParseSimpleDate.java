@@ -98,7 +98,7 @@ public class ParseSimpleDate implements Directive, Lineage {
             // ZonedDateTime requires presence of Zone and Time components in the pattern and object to be parsed.
             // For example if the pattern is yyyy-mm-dd, ZonedDateTime object can not be created and the call to
             // ZonedDateTime.parse("2018-12-21", formatter) will throw DateTimeParseException
-            Date date = formatter.parse(object.toString());
+            Date date = formatter.parse ((String) object);
             ZonedDateTime zonedDateTime = ZonedDateTime.from(date.toInstant()
                                                                .atZone(ZoneId.ofOffset("UTC", ZoneOffset.UTC)));
             row.setValue(idx, zonedDateTime);

@@ -14,7 +14,7 @@
  * the License.
  */
 
-package io.cdap.wrangler.parser;
+package io.cdap.wrangler.api.parser;
 
 import io.cdap.wrangler.api.CompileException;
 import io.cdap.wrangler.api.CompileStatus;
@@ -22,8 +22,6 @@ import io.cdap.wrangler.api.Compiler;
 import io.cdap.wrangler.api.DirectiveContext;
 import io.cdap.wrangler.api.DirectiveParseException;
 import io.cdap.wrangler.api.TokenGroup;
-import io.cdap.wrangler.api.parser.DirectiveName;
-import io.cdap.wrangler.api.parser.SyntaxError;
 
 import java.util.Iterator;
 

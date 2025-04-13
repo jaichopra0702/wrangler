@@ -92,6 +92,7 @@ public class DefaultTransientStore implements TransientStore {
    * @param name of the variable to be retrieved.
    * @return instance of object of type T.
    */
+  @SuppressWarnings("unchecked")
   @Override
   public <T> T get(String name) {
     if (global.containsKey(name)) {

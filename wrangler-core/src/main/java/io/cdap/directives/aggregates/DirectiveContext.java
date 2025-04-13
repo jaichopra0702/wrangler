@@ -14,22 +14,10 @@
  *  the License.
  */
 
-package io.cdap.wrangler.api.annotations;
-
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
+package io.cdap.directives.aggregates;
 /**
- * A interface defining the usage for the directive.
+ * This class implements the directive for aggregating byte size and time duration values.
  */
-@Documented
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.RUNTIME)
-public @interface  Usage {
-  String value() default "";
+public class DirectiveContext {
 
-  String definition();
 }

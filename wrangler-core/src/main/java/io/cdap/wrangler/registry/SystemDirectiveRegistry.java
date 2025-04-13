@@ -87,6 +87,7 @@ public final class SystemDirectiveRegistry implements DirectiveRegistry {
         for (Class<? extends Directive> directive : system) {
           DirectiveInfo info = DirectiveInfo.fromSystem(directive);
           registry.put(info.name(), info);
+          System.out.println("Loading directive: " + directive.getName());
         }
       } catch (InstantiationException | IllegalAccessException e) {
         throw new DirectiveLoadException(e.getMessage(), e);

@@ -16,7 +16,7 @@
 package io.cdap.wrangler.service.directive;
 
 import io.cdap.cdap.api.data.schema.Schema;
-import io.cdap.wrangler.parser.DirectiveClass;
+import io.cdap.wrangler.api.parser.DirectiveClass;
 
 import java.util.HashMap;
 import java.util.Map;

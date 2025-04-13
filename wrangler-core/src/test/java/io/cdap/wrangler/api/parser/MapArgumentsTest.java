@@ -14,17 +14,13 @@
  *  the License.
  */
 
-package io.cdap.wrangler.parser;
+package io.cdap.wrangler.api.parser;
 
 import io.cdap.wrangler.api.Arguments;
 import io.cdap.wrangler.api.CompileStatus;
 import io.cdap.wrangler.api.Compiler;
 import io.cdap.wrangler.api.Optional;
 import io.cdap.wrangler.api.TokenGroup;
-import io.cdap.wrangler.api.parser.ColumnName;
-import io.cdap.wrangler.api.parser.TextList;
-import io.cdap.wrangler.api.parser.TokenType;
-import io.cdap.wrangler.api.parser.UsageDefinition;
 import org.junit.Assert;
 import org.junit.Test;
 

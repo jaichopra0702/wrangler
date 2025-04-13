@@ -14,7 +14,7 @@
  *  the License.
  */
 
-package io.cdap.wrangler.parser;
+package io.cdap.wrangler.api.parser;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -22,18 +22,18 @@ import io.cdap.wrangler.api.Arguments;
 import io.cdap.wrangler.api.DirectiveParseException;
 import io.cdap.wrangler.api.LazyNumber;
 import io.cdap.wrangler.api.TokenGroup;
-import io.cdap.wrangler.api.parser.Bool;
-import io.cdap.wrangler.api.parser.BoolList;
-import io.cdap.wrangler.api.parser.ColumnName;
-import io.cdap.wrangler.api.parser.ColumnNameList;
-import io.cdap.wrangler.api.parser.Numeric;
-import io.cdap.wrangler.api.parser.NumericList;
-import io.cdap.wrangler.api.parser.Text;
-import io.cdap.wrangler.api.parser.TextList;
-import io.cdap.wrangler.api.parser.Token;
-import io.cdap.wrangler.api.parser.TokenDefinition;
-import io.cdap.wrangler.api.parser.TokenType;
-import io.cdap.wrangler.api.parser.UsageDefinition;
+// import io.cdap.wrangler.api.parser.Bool;
+// import io.cdap.wrangler.api.parser.BoolList;
+// import io.cdap.wrangler.api.parser.ColumnName;
+// import io.cdap.wrangler.api.parser.ColumnNameList;
+// import io.cdap.wrangler.api.parser.Numeric;
+// import io.cdap.wrangler.api.parser.NumericList;
+// import io.cdap.wrangler.api.parser.Text;
+// import io.cdap.wrangler.api.parser.TextList;
+// import io.cdap.wrangler.api.parser.Token;
+// import io.cdap.wrangler.api.parser.TokenDefinition;
+// import io.cdap.wrangler.api.parser.TokenType;
+// import io.cdap.wrangler.api.parser.UsageDefinition;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -234,4 +234,30 @@ public class MapArguments implements Arguments {
     object.add("arguments", arguments);
     return object;
   }
+  @Override
+public ColumnName get(int i) {
+  int index = 0;
+  for (Token token : tokens.values()) {
+    if (token instanceof ColumnName) {
+      if (index == i) {
+        return (ColumnName) token;
+      }
+      index++;
+    }
+  }
+  throw new IndexOutOfBoundsException("Index " + i + " out of bounds for ColumnName tokens.");
+}
+
+  @Override
+  public ColumnName get(String i) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'get'");
+  }
+
+  @Override
+  public void add(String string, ColumnName columnName) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'add'");
+  }
+
 }

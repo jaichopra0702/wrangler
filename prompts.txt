@@ -1,0 +1,49 @@
+# AI Prompts Used - Assignment: Enhancing CDAP Wrangler with ByteSize and TimeDuration Parsers
+# Student: Jai Chopra | Roll No: 2210990427 | Email: jai427.be22@chitkara.edu.in
+# Date: 13-04-2025
+# Context: This file contains technical AI prompts used during the enhancement of CDAP Wrangler for a company coding assignment.
+
+---
+
+Prompt 1:
+How do I define and parse BYTE_SIZE and TIME_DURATION values in the `Directives.g4` grammar for CDAP Wrangler?
+
+Prompt 2:
+How do I create `ByteSize.java` and `TimeDuration.java` classes to convert strings like "10MB", "2GB", "100ms", or "3s" into long values (bytes or nanoseconds)?
+
+Prompt 3:
+What is the correct way to write grammar rules for custom argument types like `byteSizeArg` and `timeDurationArg` in ANTLR?
+
+Prompt 4:
+How should I implement the `visitByteSizeArg` and `visitTimeDurationArg` methods in `RecipeVisitor.java` to return usable parsed values?
+
+Prompt 5:
+In `UsageDefinition.java`, how do I register custom tokens BYTE_SIZE and TIME_DURATION using the `define()` method for argument compatibility?
+
+Prompt 6:
+I’m implementing a new directive `aggregate-stats` in `AggregateStats.java`. How can I support sum, average, median, and percentiles across fields including ByteSize and TimeDuration?
+
+Prompt 7:
+How can I allow `aggregate-stats` to output values in user-defined units like MB or seconds using optional directive arguments?
+
+Prompt 8:
+How do I write unit tests in `AggregateStatsTest.java` to check total, average, and percentiles for byte size and time duration fields?
+
+Prompt 9:
+How do I use `TestingRig.execute()` in unit tests to run recipes with input rows and extract values using `Row.getValue()`?
+
+Prompt 10:
+How do I write test cases in `ByteSizeTest.java` and `TimeDurationTest.java` to verify that different input strings are correctly converted to bytes and nanoseconds?
+
+Prompt 11:
+How do I assert double values with tolerances in JUnit (e.g., `Assert.assertEquals(expected, actual, delta)`), especially when verifying computed aggregates?
+
+Prompt 12:
+How can I ensure that existing directives are not broken while integrating new token types and visitor methods?
+
+---
+
+Notes:
+- All prompts are technical in nature and relate directly to code, grammar, parsing, and testing.
+- AI assistance was used to accelerate development and improve code quality.
+- Final implementations were reviewed, tested, and validated for correctness.

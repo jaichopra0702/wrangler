@@ -14,7 +14,7 @@
  *  the License.
  */
 
-package io.cdap.wrangler.parser;
+package io.cdap.wrangler.api.parser;
 
 import com.google.common.base.Joiner;
 import edu.emory.mathcs.backport.java.util.Arrays;

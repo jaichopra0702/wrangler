@@ -31,6 +31,27 @@ More [here](wrangler-docs/upcoming-features.md) on upcoming features.
   * A new capability that allows CDAP Administrators to **restrict the directives** that are accessible to their users.
 More information on configuring can be found [here](wrangler-docs/exclusion-and-aliasing.md)
 
+## ByteSize and TimeDuration Token Support
+
+Wrangler now supports two new grammar token types: `ByteSize` and `TimeDuration`, which allow users to provide human-friendly byte and time inputs in their directives.
+
+### Supported Formats
+
+- **ByteSize**
+  - Examples: `'10MB'`, `'512KB'`, `'2GB'`, `'1TB'`, `'150B'`
+  - Internally parsed into bytes.
+
+- **TimeDuration**
+  - Examples: `'5s'`, `'200ms'`, `'3h'`, `'10m'`
+  - Internally parsed into milliseconds.
+
+### Sample Usage in Directives
+
+`wrangler
+set-ttl :body '10MB';
+wait-for :timeout '2h';
+
+
 ## Demo Videos and Recipes
 
 Videos and Screencasts are best way to learn, so we have compiled simple, short screencasts that shows some of the features of Data Prep. Additional videos can be found [here](https://www.youtube.com/playlist?list=PLhmsf-NvXKJn-neqefOrcl4n7zU4TWmIr)
